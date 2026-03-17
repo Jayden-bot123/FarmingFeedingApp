@@ -2,9 +2,11 @@
 
 class Program
 {
+    static AppManager appManager = new AppManager();
+
     static void Main(string[] args)
     {
-        Console.WriteLine("Hello, World!");
+        Console.WriteLine();
     }
 }
 

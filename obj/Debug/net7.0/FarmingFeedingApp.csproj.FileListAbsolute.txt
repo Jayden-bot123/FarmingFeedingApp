@@ -1,0 +1,15 @@
+/Users/jaydenjoseph-nellaryil/Documents/Projects/FarmingFeedingApp/FarmingFeedingApp/bin/Debug/net7.0/FarmingFeedingApp
+/Users/jaydenjoseph-nellaryil/Documents/Projects/FarmingFeedingApp/FarmingFeedingApp/bin/Debug/net7.0/FarmingFeedingApp.deps.json
+/Users/jaydenjoseph-nellaryil/Documents/Projects/FarmingFeedingApp/FarmingFeedingApp/bin/Debug/net7.0/FarmingFeedingApp.runtimeconfig.json
+/Users/jaydenjoseph-nellaryil/Documents/Projects/FarmingFeedingApp/FarmingFeedingApp/bin/Debug/net7.0/FarmingFeedingApp.dll
+/Users/jaydenjoseph-nellaryil/Documents/Projects/FarmingFeedingApp/FarmingFeedingApp/bin/Debug/net7.0/FarmingFeedingApp.pdb
+/Users/jaydenjoseph-nellaryil/Documents/Projects/FarmingFeedingApp/FarmingFeedingApp/obj/Debug/net7.0/FarmingFeedingApp.csproj.AssemblyReference.cache
+/Users/jaydenjoseph-nellaryil/Documents/Projects/FarmingFeedingApp/FarmingFeedingApp/obj/Debug/net7.0/FarmingFeedingApp.GeneratedMSBuildEditorConfig.editorconfig
+/Users/jaydenjoseph-nellaryil/Documents/Projects/FarmingFeedingApp/FarmingFeedingApp/obj/Debug/net7.0/FarmingFeedingApp.AssemblyInfoInputs.cache
+/Users/jaydenjoseph-nellaryil/Documents/Projects/FarmingFeedingApp/FarmingFeedingApp/obj/Debug/net7.0/FarmingFeedingApp.AssemblyInfo.cs
+/Users/jaydenjoseph-nellaryil/Documents/Projects/FarmingFeedingApp/FarmingFeedingApp/obj/Debug/net7.0/FarmingFeedingApp.csproj.CoreCompileInputs.cache
+/Users/jaydenjoseph-nellaryil/Documents/Projects/FarmingFeedingApp/FarmingFeedingApp/obj/Debug/net7.0/FarmingFeedingApp.dll
+/Users/jaydenjoseph-nellaryil/Documents/Projects/FarmingFeedingApp/FarmingFeedingApp/obj/Debug/net7.0/refint/FarmingFeedingApp.dll
+/Users/jaydenjoseph-nellaryil/Documents/Projects/FarmingFeedingApp/FarmingFeedingApp/obj/Debug/net7.0/FarmingFeedingApp.pdb
+/Users/jaydenjoseph-nellaryil/Documents/Projects/FarmingFeedingApp/FarmingFeedingApp/obj/Debug/net7.0/FarmingFeedingApp.genruntimeconfig.cache
+/Users/jaydenjoseph-nellaryil/Documents/Projects/FarmingFeedingApp/FarmingFeedingApp/obj/Debug/net7.0/ref/FarmingFeedingApp.dll
