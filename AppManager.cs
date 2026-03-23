@@ -120,7 +120,31 @@ namespace FarmingFeedingApp
                 "Rumen acidosis, fatty liver, obesity reducing milk yield.")
 
             },
+            { "Large White", ("Stunted growth, reduced daily weight gain, weakened immune system.",
+                "Obesity reducing meat quality, constipation, digestive problems.")
 
+
+            },
+            { "Duroc", ("Stunted growth, reduced weight gain, increased disease susceptibility.",
+                "Excess fat reducing carcass quality, digestive disorders, wasted feed costs.")
+
+            },
+            { "Landrace", ("Stunted growth, low birth weight in piglets, weakened immunity.",
+                "Obesity, congested udders reducing milk yield, constipation.")
+
+            },
+            { "Broiler", ("Stunted growth, slower time to market weight, weakened immune system.",
+                "Excess fat in carcass reducing meat quality, lethargy, increased disease susceptibility.")
+
+            },
+            { "Leghorn", ("Weight loss, decline in egg production, pale combs and wattles.",
+                "Obesity, reduced egg production, lethargy, increased disease susceptibility.")
+
+            },
+            { "Rhode Island Red", ("Weight loss, reduced egg production, poor feather quality, weakened immunity.",
+                "Obesity, reduced egg production, lethargy, wasted feed costs.")
+
+            }
         };
 
         public AppManager()
