@@ -48,6 +48,23 @@ namespace FarmingFeedingApp
             return costPerGram;
         }
 
+        // Methods
+        public double TotalWeeklyFood()
+        {
+            return 0;
+        }
+        public double TotalWeeklyCost()
+        {
+            return 0;
+        }
+        public string CheckFeedingStatus(double min, double max)
+        {
+            return "";
+        }
+        public string AnimalSummary()
+        {
+            return "";
+        }
     }
 }
 

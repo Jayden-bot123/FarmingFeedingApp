@@ -79,9 +79,48 @@ namespace FarmingFeedingApp
             { "Large White", (14000,  19600)  },
             { "Duroc", (15400,  20300) },
             { "Landrace", (13300,  18900) },
-            { "Broiler", (735,    1050) },
-            { "Leghorn", (490,    630) },
-            { "Rhode Island Red", (805,    840) }
+            { "Broiler", (735, 1050) },
+            { "Leghorn", (490, 630) },
+            { "Rhode Island Red", (805, 980) }
+
+        };
+
+        //  each breed to its undereating and overeating consequence messages
+        private Dictionary<string, (string under, string over)> consequences = new Dictionary<string, (string, string)>()
+        {
+            { "Holstein-Friesian", ("Reduced milk production, weight loss, risk of ketosis, reproductive problems.",
+                "Obesity, fat deposits in udder reducing milk production, digestive disorders.")
+
+            },
+            { "Jersey", ("Reduced milk production, weight loss, poor body condition, delayed return to heat.",
+                "Prone to obesity, fat deposits in udder, reduced future milk production.")
+
+            },
+            { "Angus", ("Weight loss, weakened immunity, delayed rebreeding, reduced calf birth weights.",
+                "Obesity, excess internal fat causing calving difficulty, ruminal acidosis.")
+
+            },
+            { "Hereford", ("Weight loss, poor body condition, weakened immunity, reduced reproductive performance.",
+                "Obesity, calving difficulty, ruminal acidosis, wasted feed costs.")
+
+            },
+            { "Merino", ("Reduced wool growth, weight loss, lower lamb survival rates, increased parasite susceptibility.",
+                "Rumen acidosis, fatty liver syndrome, excessive weight gain reducing mobility.")
+
+            },
+            { "Border Leicester", ("Reduced wool and meat production, weight loss, poor lamb survival rates.",
+                "Rumen acidosis, fatty liver syndrome, reduced grazing efficiency.")
+
+            },
+            { "Charollais", ("Reduced meat production, weight loss, poor body condition, lower lamb survival.",
+                "Rumen acidosis, obesity, reduced mobility and grazing efficiency.")
+            },
+
+            { "Awassi", ("Reduced milk and wool production, weight loss, poor reproductive performance.",
+                "Rumen acidosis, fatty liver, obesity reducing milk yield.")
+
+            },
+
         };
 
         public AppManager()
