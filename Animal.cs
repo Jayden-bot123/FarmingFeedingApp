@@ -49,17 +49,41 @@ namespace FarmingFeedingApp
         }
 
         // Methods
+
+        // Adds up all 7 daily food values and returns the total grams for the week
         public double TotalWeeklyFood()
         {
-            return 0;
+            double total = 0;
+            foreach (double grams in dailyFood)
+            {
+                total += grams;
+            }
+            return total;
         }
+
+        // Multiplies total weekly food by cost per gram to get weekly cost
         public double TotalWeeklyCost()
         {
-            return 0;
+            return TotalWeeklyFood() * costPerGram;
         }
+
+        // Compares weekly total against breed min/max range and returns a message if the animal is overeating, undereating or normal.
         public string CheckFeedingStatus(double min, double max)
         {
-            return "";
+            double weeklyTotal = TotalWeeklyFood();
+
+            if (weeklyTotal < min)
+            {
+                return "Undereating";
+            }
+            else if (weeklyTotal > max)
+            {
+                return "Overeating";
+            }
+            else
+            {
+                return "Normal";
+            }
         }
         public string AnimalSummary()
         {

@@ -150,7 +150,26 @@ namespace FarmingFeedingApp
         public AppManager()
 		{
 
+
 		}
-	}
+
+        // Returns the list of breeds for a given species
+        public List<string> GetBreeds(string species)
+        {
+            return speciesBreed[species];
+        }
+
+        // Returns the list of food types for a given species
+        public List<string> GetFoods(string species)
+        {
+            return speciesFoods[species];
+        }
+
+        // Looks up and returns the preset cost per gram for a given food type
+        public double GetCostPerGram(string foods)
+        {
+            return feedCosts[foods];
+        }
+    }
 }
 
