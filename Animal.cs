@@ -87,7 +87,28 @@ namespace FarmingFeedingApp
         }
         public string AnimalSummary()
         {
-            return "";
+            string[] days = { "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" };
+
+            string summary = "\n============================================================\n";
+            summary += $"  Animal ID   : {animalID}\n";
+            summary += $"  Species     : {species}\n";
+            summary += $"  Breed       : {breed}\n";
+            summary += $"  Feed Type   : {feedType}\n";
+            summary += "------------------------------------------------------------\n";
+            summary += "  Daily Food Intake:\n";
+
+            for (int i = 0; i < 7; i++)
+            {
+                summary += $"    {days[i],-12}: {dailyFood[i]:F0}g\n";
+            }
+
+            summary += "------------------------------------------------------------\n";
+            summary += $"  Total Weekly Food : {TotalWeeklyFood():F0}g\n";
+            summary += $"  Cost Per Gram     : ${costPerGram:F6}\n";
+            summary += $"  Total Weekly Cost : ${TotalWeeklyCost():F2}\n";
+            summary += "============================================================\n";
+
+            return summary;
         }
     }
 }
