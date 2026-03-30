@@ -14,7 +14,7 @@ class Program
     // List of days used for the 7-day food input loop
     static List<string> DAYS = new List<string>() {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
 
-    //Menu Methods---------------------
+    //Menu Methods
 
     // Displays the species menu and returns the selected species as a string
     static string DisplaySpeciesMenu()
@@ -62,7 +62,7 @@ class Program
     }
 
 
-    //Input Methods--------------------
+    //Input Methods
 
     // Asks for and returns the animal name/ID
     static string GetAnimalID()
@@ -89,8 +89,6 @@ class Program
 
         return dailyFood;
     }
-
-    //CreateAnimal()--------------------
 
     // Collects all input, creates and returns a new Animal object
     static Animal CreateAnimal()
@@ -124,9 +122,6 @@ class Program
     {
         // Create a new animal from user input
         Animal newAnimal = CreateAnimal();
-
-
-
 
     } 
 }

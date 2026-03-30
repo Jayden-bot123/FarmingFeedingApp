@@ -22,6 +22,12 @@ namespace FarmingFeedingApp
 
         //Global lists and dictionaries
 
+        // Tracks the animal with the highest weekly cost
+        private Animal highestCostAnimal = null;
+
+        // Tracks the animal with the highest weekly food consumption
+        private Animal highestConsumptionAnimal = null;
+
         // Stores all Animal objects added during the session
         private List<Animal> animals = new List<Animal>();
 
@@ -68,20 +74,20 @@ namespace FarmingFeedingApp
         //Puts each breed to its healthy weekly food range in grams (min, max)
         private Dictionary<string, (double min, double max)> feedingRanges = new Dictionary<string, (double, double)>()
         {
-            { "Holstein-Friesian", (126000, 147000) },
+            { "Holstein-Friesian", (126000, 147000)},
             { "Jersey", (105000, 126000) },
-            { "Angus", (77000,  98000) },
-            { "Hereford", (84000,  105000) },
+            { "Angus", (77000, 98000) },
+            { "Hereford", (84000,  105000)},
             { "Merino", (4900,   6300) },
             { "Border Leicester", (6300,   8400) },
-            { "Charollais", (5600,   7700)   },
-            { "Awassi", (5600,   7000) },
-            { "Large White", (14000,  19600)  },
+            { "Charollais", (5600, 7700)},
+            { "Awassi", (5600, 7000) },
+            { "Large White", (14000, 19600)},
             { "Duroc", (15400,  20300) },
-            { "Landrace", (13300,  18900) },
+            { "Landrace", (13300, 18900)},
             { "Broiler", (735, 1050) },
-            { "Leghorn", (490, 630) },
-            { "Rhode Island Red", (805, 980) }
+            { "Leghorn", (490, 630)},
+            { "Rhode Island Red", (805, 980)}
 
         };
 
@@ -147,11 +153,32 @@ namespace FarmingFeedingApp
             }
         };
 
+        //Constructor
         public AppManager()
 		{
 
 
 		}
+
+        //Methods
+
+        // Adds a new Animal object to the animals list
+        public void AddAnimal(Animal animal)
+        {
+            animals.Add(animal);
+
+            // Check if this animal has the highest cost so far
+            if (highestCostAnimal == null || animal.TotalWeeklyCost() > highestCostAnimal.TotalWeeklyCost())
+            {
+                highestCostAnimal = animal;
+            }
+
+            // Check if this animal has the highest food consumption so far
+            if (highestConsumptionAnimal == null || animal.TotalWeeklyFood() > highestConsumptionAnimal.TotalWeeklyFood())
+            {
+                highestConsumptionAnimal = animal;
+            }
+        }
 
         // Returns the list of breeds for a given species
         public List<string> GetBreeds(string species)
@@ -170,6 +197,153 @@ namespace FarmingFeedingApp
         {
             return feedCosts[foods];
         }
+
+        // Looks up and returns the (min, max) feeding range in grams for a given breed
+        public (double min, double max) GetFeedingRangeByBreed(string breed)
+        {
+            return feedingRanges[breed];
+        }
+
+        // Returns the consequence message for a given breed and status
+        public string GetConsequence(string breed, string status)
+        {
+            if (status == "Undereating")
+            {
+                return consequences[breed].under;
+            }
+            else if (status == "Overeating")
+            {
+                return consequences[breed].over;
+            }
+            return "";
+        }
+
+        // Adds up the weekly cost of every animal and returns the grand total
+        public double CalculateTotalFarmCost()
+        {
+            double total = 0;
+            //loops through every animal in the main animals list
+            foreach (Animal animal in animals)
+            {
+                total += animal.TotalWeeklyCost();
+            }
+            return total;
+        }
+
+        public List<Animal> GetAnimalsUndereating()
+        {
+            //creates a new empty list called undereating that will store the undereating animals
+            List<Animal> undereating = new List<Animal>();
+            foreach (Animal animal in animals)
+            {
+                var (min, max) = GetFeedingRangeByBreed(animal.GetBreed());
+
+                if (animal.CheckFeedingStatus(min, max) == "Undereating")
+                {
+                    //Add that animal to the undereating list
+                    undereating.Add(animal);
+                }
+            }
+            return undereating;
+        }
+
+        public List<Animal> GetAnimalsOvereating()
+        {
+            //creates a new empty list called overeating that will store the overeating animals
+            List<Animal> overeating = new List<Animal>();
+            foreach (Animal animal in animals)
+            {
+                //for the current animal, it gets the breed form GetBreed() method and looks up the feeding range in feeding ranges dictionary
+                var (min, max) = GetFeedingRangeByBreed(animal.GetBreed());
+                //calls CheckFeedingStatus() method. if it returns overeating then run the code inside
+                if (animal.CheckFeedingStatus(min, max) == "Overeating")
+                {
+                    //Add that animal to the overeating list
+                    overeating.Add(animal);
+                }
+            }
+            return overeating;
+        }
+
+        // Returns the animal with the highest weekly cost
+        public Animal GetHighestCostAnimal()
+        {
+            return highestCostAnimal;
+        }
+
+        // Returns the animal with the highest weekly food consumption
+        public Animal GetHighestConsumptionAnimal()
+        {
+            return highestConsumptionAnimal;
+        }
+
+        // Counts and displays the number of animals per species and per breed
+        public void CountAnimalsPerSpecies()
+        {
+            //create an empty dictionary to count how many animals per species and per breed
+            Dictionary<string, int> speciesCount = new Dictionary<string, int>();
+            Dictionary<string, int> breedCount = new Dictionary<string, int>();
+
+            foreach (Animal animal in animals)
+            {
+                // Check if this species has already been added to the dictionary
+                if (speciesCount.ContainsKey(animal.GetSpecies()))
+                {
+                    // If yes, add 1 to the existing count for that species (e.g. "Sheep" already exists in the dictionary), add 1 to its count
+                    speciesCount[animal.GetSpecies()]++;
+                }
+                else
+                {
+                    // If no, add this species to the dictionary and set its count to 1 (e.g. "Chicken" has not been seen before), 
+                    speciesCount[animal.GetSpecies()] = 1;
+                }
+
+                if (breedCount.ContainsKey(animal.GetBreed()))
+                {
+                    breedCount[animal.GetBreed()]++;
+                }
+                else
+                {
+                    breedCount[animal.GetBreed()] = 1;
+                }
+            }
+
+            Console.WriteLine("\n  Animals Per Species:");
+            foreach (var entry in speciesCount)
+            {
+                // entry.Key is the species name, entry.Value is the count
+                Console.WriteLine($"{entry.Key}: {entry.Value}");
+            }
+
+            Console.WriteLine("\n  Animals Per Breed:");
+            foreach (var entry in breedCount)
+            {
+                // entry.Key is the breed name, entry.Value is the count
+                Console.WriteLine($"{entry.Key}: {entry.Value}");
+            }
+        }
+
+        // Displays the full farm summary when user stops adding animals
+        public void FinalFarmSummary()
+        {
+            Console.WriteLine("--------------------FARM SUMMARY--------------------");
+
+            CountAnimalsPerSpecies();
+
+            Console.WriteLine("Animal Overview:");
+            foreach (Animal animal in animals)
+            {
+                // Print a short summary for each animal - ID, breed, total food, total cost
+                Console.WriteLine($"  {animal.GetAnimalID()}\n{animal.GetBreed()}\n{animal.TotalWeeklyFood():F0}g\n${animal.TotalWeeklyCost():F2}");
+            }
+
+            //Total farm cost, highest feeding costs and highest animal consumption being returned to user
+            Console.WriteLine("\n------------------------------------------------------------");
+            Console.WriteLine($"Total Weekly Cost to Feed All Animals: ${CalculateTotalFarmCost()}");
+            Console.WriteLine($"\nHighest Feeding Cost: {GetHighestCostAnimal().GetAnimalID()} ({GetHighestCostAnimal().GetBreed()}) - ${GetHighestCostAnimal().TotalWeeklyCost()} per week");
+            Console.WriteLine($"Highest Consumption: {GetHighestConsumptionAnimal().GetAnimalID()} ({GetHighestConsumptionAnimal().GetBreed()}) - {GetHighestConsumptionAnimal().TotalWeeklyFood()}g per week");
+
+
+        }
     }
 }
-
