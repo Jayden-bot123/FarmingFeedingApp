@@ -72,33 +72,44 @@ namespace FarmingFeedingApp
         {
             double weeklyTotal = TotalWeeklyFood();
 
+            Console.ForegroundColor = ConsoleColor.White;
             if (weeklyTotal < min)
             {
+
                 return "Undereating";
+                Console.ForegroundColor = ConsoleColor.Yellow;
+
             }
+
             else if (weeklyTotal > max)
             {
+   
                 return "Overeating";
+                Console.ForegroundColor = ConsoleColor.DarkRed;
             }
             else
             {
+
                 return "Normal";
+                Console.ForegroundColor = ConsoleColor.Green;
+
             }
+
         }
         public string AnimalSummary()
         {
             string[] days = { "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" };
 
             string summary = "\n============================================================\n";
-            summary += $"  Animal ID: {animalID}\n Species: {species}\n Breed: {breed}\n Feed Type: {feedType}\n Daily Food Intake:\n";
+            summary += $"Animal ID: {animalID}\nSpecies: {species}\nBreed: {breed}\nFeed Type: {feedType}\nDaily Food Consumption:\n";
 
             for (int i = 0; i < 7; i++)
             {
-                summary += $"    {days[i],-12}: {dailyFood[i]:F0}g\n";
+                summary += $"{days[i], -10}: {dailyFood[i]}g\n";
             }
 
             summary += "------------------------------------------------------------\n";
-            summary += $"  Total Weekly Food : {TotalWeeklyFood():F0}g\n Cost Per Gram: ${costPerGram:F6}\n Total Weekly Cost : ${TotalWeeklyCost():F2}\n";
+            summary += $"Total Weekly Food: {TotalWeeklyFood():F0}g\nCost Per Gram for {feedType}: ${costPerGram:F6}\nTotal Weekly Cost : ${TotalWeeklyCost():F4}\n";
             summary += "============================================================\n";
 
             return summary;

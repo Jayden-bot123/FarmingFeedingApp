@@ -34,7 +34,7 @@ namespace FarmingFeedingApp
         //Puts each species into a list of breeds
         private Dictionary<string, List<string>> speciesBreed = new Dictionary<string, List<string>>()
         {
-            {"Dairy Cow", new List<string>() {"Holestein-Friesian", "Jersey"} },
+            {"Dairy Cow", new List<string>() {"Holstein-Friesian", "Jersey"} },
             {"Beef Cow", new List<string>() {"Angus", "Hereford"} },
             {"Sheep", new List<string>() { "Merino", "Border Leicester", "Charollais", "Awassi" } },
             {"Pig", new List<string>() {"Large White", "Duroc", "Landrace"} },
@@ -44,7 +44,7 @@ namespace FarmingFeedingApp
         //Puts each species to its list of food types
         private Dictionary<string, List<string>> speciesFoods = new Dictionary<string, List<string>>()
         {
-            {"Dairy Cow", new List<string>() {"Grass Silage", "Maiza Silage", "Grain Mix", "Alfalfa Hay" } },
+            {"Dairy Cow", new List<string>() {"Grass Silage", "Maize Silage", "Grain Mix", "Alfalfa Hay" } },
             {"Beef Cow", new List<string>() {"Pasture Grass", "Grass Hay", "Corn Silage", "Grain Mix"} },
             {"Sheep", new List<string>() {"Pasture Grass", "Grass Hay", "Grain Supplement", "Silage"} },
             {"Pig", new List<string>() {"Corn", "Soybean Meal", "Barley", "Wheat",} },
@@ -96,60 +96,45 @@ namespace FarmingFeedingApp
         {
             { "Holstein-Friesian", ("Reduced milk production, weight loss, risk of ketosis, reproductive problems.",
                 "Obesity, fat deposits in udder reducing milk production, digestive disorders.")
-
             },
             { "Jersey", ("Reduced milk production, weight loss, poor body condition, delayed return to heat.",
                 "Prone to obesity, fat deposits in udder, reduced future milk production.")
-
             },
             { "Angus", ("Weight loss, weakened immunity, delayed rebreeding, reduced calf birth weights.",
                 "Obesity, excess internal fat causing calving difficulty, ruminal acidosis.")
-
             },
             { "Hereford", ("Weight loss, poor body condition, weakened immunity, reduced reproductive performance.",
                 "Obesity, calving difficulty, ruminal acidosis, wasted feed costs.")
-
             },
             { "Merino", ("Reduced wool growth, weight loss, lower lamb survival rates, increased parasite susceptibility.",
                 "Rumen acidosis, fatty liver syndrome, excessive weight gain reducing mobility.")
-
             },
             { "Border Leicester", ("Reduced wool and meat production, weight loss, poor lamb survival rates.",
                 "Rumen acidosis, fatty liver syndrome, reduced grazing efficiency.")
-
             },
             { "Charollais", ("Reduced meat production, weight loss, poor body condition, lower lamb survival.",
                 "Rumen acidosis, obesity, reduced mobility and grazing efficiency.")
             },
-
             { "Awassi", ("Reduced milk and wool production, weight loss, poor reproductive performance.",
                 "Rumen acidosis, fatty liver, obesity reducing milk yield.")
-
             },
             { "Large White", ("Stunted growth, reduced daily weight gain, weakened immune system.",
                 "Obesity reducing meat quality, constipation, digestive problems.")
-
-
             },
             { "Duroc", ("Stunted growth, reduced weight gain, increased disease susceptibility.",
                 "Excess fat reducing carcass quality, digestive disorders, wasted feed costs.")
-
             },
             { "Landrace", ("Stunted growth, low birth weight in piglets, weakened immunity.",
                 "Obesity, congested udders reducing milk yield, constipation.")
-
             },
             { "Broiler", ("Stunted growth, slower time to market weight, weakened immune system.",
                 "Excess fat in carcass reducing meat quality, lethargy, increased disease susceptibility.")
-
             },
             { "Leghorn", ("Weight loss, decline in egg production, pale combs and wattles.",
                 "Obesity, reduced egg production, lethargy, increased disease susceptibility.")
-
             },
             { "Rhode Island Red", ("Weight loss, reduced egg production, poor feather quality, weakened immunity.",
                 "Obesity, reduced egg production, lethargy, wasted feed costs.")
-
             }
         };
 
@@ -343,7 +328,43 @@ namespace FarmingFeedingApp
             Console.WriteLine($"\nHighest Feeding Cost: {GetHighestCostAnimal().GetAnimalID()} ({GetHighestCostAnimal().GetBreed()}) - ${GetHighestCostAnimal().TotalWeeklyCost()} per week");
             Console.WriteLine($"Highest Consumption: {GetHighestConsumptionAnimal().GetAnimalID()} ({GetHighestConsumptionAnimal().GetBreed()}) - {GetHighestConsumptionAnimal().TotalWeeklyFood()}g per week");
 
+            //Returns a list of all undereating animals
+            List<Animal> undereating = GetAnimalsUndereating();
 
+            Console.WriteLine("\n------------------------------------------------------------");
+
+            Console.WriteLine("Animals Undereating:");
+
+            if (undereating.Count == 0)
+            {
+
+                Console.WriteLine("None");
+            }
+            else
+            {
+                foreach (Animal animal in undereating)
+                {
+                    Console.WriteLine($"  {animal.GetAnimalID()} ({animal.GetBreed()}) - {animal.TotalWeeklyFood():F0}g/week");
+                }
+            }
+
+            //Returns a list of all overeating animals
+            List<Animal> overeating = GetAnimalsOvereating();
+
+            Console.WriteLine("\nAnimals Overeating:");
+            if (overeating.Count == 0)
+            {
+
+                Console.WriteLine("None");
+            }
+            else
+            {
+                foreach (Animal animal in overeating)
+                {
+                    Console.WriteLine($"  {animal.GetAnimalID()} ({animal.GetBreed()}) - {animal.TotalWeeklyFood():F0}g/week");
+                }
+            }
+            Console.WriteLine("\n============================================================");
         }
     }
 }

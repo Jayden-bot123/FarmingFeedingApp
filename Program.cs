@@ -115,13 +115,60 @@ class Program
         return new Animal(animalID, species, breeds, foods, dailyfood, costPerGram);
     }
 
+    static string CheckProceed()
+    {
+        string proceed;
+
+        while (true)
+        {
+            Console.WriteLine("Press <Enter> to add another devices information or type 'Stop' to quit.");
+            proceed = Console.ReadLine().ToUpper();
+
+            if (proceed.Equals("") || proceed.Equals("STOP"))
+            {
+                return proceed;
+            }
+
+        }
+
+    }
+
 
     // Collects all input, creates and returns a new Animal object
 
     static void Main(string[] args)
     {
-        // Create a new animal from user input
-        Animal newAnimal = CreateAnimal();
+        string proceed = "";
+        while (proceed.Equals(""))
+        {
+
+            // Create a new animal from user input
+            Animal newAnimal = CreateAnimal();
+
+            //Add animal to the manager
+            appManager.AddAnimal(newAnimal);
+
+            //Get the feeding range for this breed
+            var (min, max) = appManager.GetFeedingRangeByBreed(newAnimal.GetBreed());
+
+            //Check feeding status
+            string status = newAnimal.CheckFeedingStatus(min, max);
+
+
+            //Display the animal summary
+            Console.WriteLine(newAnimal.AnimalSummary());
+
+            //Show if it is overeating or undereating
+            Console.WriteLine($"Animal Consumption Status: {status}");
+
+
+            //Display the consequences if animal is overeating or undereating
+            Console.WriteLine(appManager.GetConsequence(newAnimal.GetBreed(), status));
+
+
+            proceed = CheckProceed();
+
+        }
 
     } 
 }
