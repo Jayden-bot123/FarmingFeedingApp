@@ -24,7 +24,7 @@ class Program
         {
             Console.WriteLine($"  {i + 1}. {SPECIES[i]}");
         }
-        Console.Write("Enter number:\n");
+        Console.Write("\nEnter number:\n");
 
         int choice = Convert.ToInt32(Console.ReadLine());
         return SPECIES[choice - 1];
@@ -35,12 +35,12 @@ class Program
     {
         List<string> breeds = appManager.GetBreeds(species);
 
-        Console.WriteLine($"Select a breed for {species}:");
+        Console.WriteLine($"\nSelect a breed for {species}:");
         for (int i = 0; i < breeds.Count; i++)
         {
             Console.WriteLine($"  {i + 1}. {breeds[i]}");
         }
-        Console.Write("Enter number:\n");
+        Console.Write("\nEnter number:\n");
 
         int choice = Convert.ToInt32(Console.ReadLine());
         return breeds[choice - 1];
@@ -49,12 +49,12 @@ class Program
     static string DisplayFoodMenu(string species)
     {
         List<string> foods = appManager.GetFoods(species);
-        Console.WriteLine($"Select a food type for {species}\n");
+        Console.WriteLine($"\nSelect a food type for {species}\n");
         for (int i = 0; i < foods.Count; i++)
         {
             Console.WriteLine($"{i + 1}. {foods[i]}");
         }
-        Console.WriteLine("Enter number\n");
+        Console.WriteLine("\nEnter number");
 
         int choice = Convert.ToInt32(Console.ReadLine());
         return foods[choice - 1];
@@ -67,7 +67,7 @@ class Program
     // Asks for and returns the animal name/ID
     static string GetAnimalID()
     {
-        Console.Write("\nEnter animal name or ID:\n");
+        Console.Write("Enter animal name or ID:\n");
         return Console.ReadLine().ToUpper();
     }
 
@@ -77,12 +77,13 @@ class Program
         double[] dailyFood = new double[7];
         int i = 0;
 
-        Console.WriteLine("Enter the amount of food consumed each day (in grams):\n");
+        Console.WriteLine("\nEnter the amount of food consumed each day (in grams):\n");
 
         //Loop through each day using global DAYS list
         foreach(var day in DAYS)
         {
-            Console.WriteLine($"Food consumed on {day} (grams):\n");
+            Console.WriteLine($"\nFood consumed on {day} (grams):\n");
+
             dailyFood[i] = Convert.ToDouble(Console.ReadLine());
             i++;
         }
@@ -121,7 +122,7 @@ class Program
 
         while (true)
         {
-            Console.WriteLine("Press <Enter> to add another devices information or type 'Stop' to quit.");
+            Console.WriteLine("\nPress <Enter> to add another devices information or type 'Stop' to quit.\n");
             proceed = Console.ReadLine().ToUpper();
 
             if (proceed.Equals("") || proceed.Equals("STOP"))
@@ -154,21 +155,42 @@ class Program
             //Check feeding status
             string status = newAnimal.CheckFeedingStatus(min, max);
 
-
-            //Display the animal summary
+            // Colour reset before summary so it stays white
+            Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine(newAnimal.AnimalSummary());
 
-            //Show if it is overeating or undereating
-            Console.WriteLine($"Animal Consumption Status: {status}");
 
+            // Display consequence message if under or overeating. Red means overeating, yellow means undereating and green means normal
+            if (status == "Undereating")
+            {
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.WriteLine($"Feeding Status: {status}");
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.WriteLine($"Warning: {appManager.GetConsequence(newAnimal.GetBreed(), status)}");
+            }
+            else if (status == "Overeating")
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine($"Feeding Status: {status}");
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.WriteLine($"Warning: {appManager.GetConsequence(newAnimal.GetBreed(), status)}");
+            }
+            else
+            {
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine($"Feeding Status: {status}");
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.WriteLine("This animal is being fed the correct amount.");
+            }
 
-            //Display the consequences if animal is overeating or undereating
-            Console.WriteLine(appManager.GetConsequence(newAnimal.GetBreed(), status));
-
-
+            // Ask if user wants to add another animal
             proceed = CheckProceed();
-
         }
+
+        // Display the final farm summary
+        appManager.FinalFarmSummary();
+
+    
 
     } 
 }

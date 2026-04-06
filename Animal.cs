@@ -67,41 +67,32 @@ namespace FarmingFeedingApp
             return TotalWeeklyFood() * costPerGram;
         }
 
-        // Compares weekly total against breed min/max range and returns a message if the animal is overeating, undereating or normal.
         public string CheckFeedingStatus(double min, double max)
         {
             double weeklyTotal = TotalWeeklyFood();
 
-            Console.ForegroundColor = ConsoleColor.White;
             if (weeklyTotal < min)
             {
 
                 return "Undereating";
-                Console.ForegroundColor = ConsoleColor.Yellow;
-
             }
-
             else if (weeklyTotal > max)
             {
-   
+
                 return "Overeating";
-                Console.ForegroundColor = ConsoleColor.DarkRed;
             }
             else
             {
 
                 return "Normal";
-                Console.ForegroundColor = ConsoleColor.Green;
-
             }
-
         }
         public string AnimalSummary()
         {
             string[] days = { "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" };
 
             string summary = "\n============================================================\n";
-            summary += $"Animal ID: {animalID}\nSpecies: {species}\nBreed: {breed}\nFeed Type: {feedType}\nDaily Food Consumption:\n";
+            summary += $"\nAnimal ID: {animalID}\nSpecies: {species}\nBreed: {breed}\nFeed Type: {feedType}\nDaily Food Consumption:\n";
 
             for (int i = 0; i < 7; i++)
             {

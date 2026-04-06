@@ -215,35 +215,30 @@ namespace FarmingFeedingApp
             return total;
         }
 
+        //creates list of undereating animals
         public List<Animal> GetAnimalsUndereating()
         {
-            //creates a new empty list called undereating that will store the undereating animals
             List<Animal> undereating = new List<Animal>();
             foreach (Animal animal in animals)
             {
                 var (min, max) = GetFeedingRangeByBreed(animal.GetBreed());
-
                 if (animal.CheckFeedingStatus(min, max) == "Undereating")
                 {
-                    //Add that animal to the undereating list
                     undereating.Add(animal);
                 }
             }
             return undereating;
         }
 
+        //Creates list of overeating animals
         public List<Animal> GetAnimalsOvereating()
         {
-            //creates a new empty list called overeating that will store the overeating animals
             List<Animal> overeating = new List<Animal>();
             foreach (Animal animal in animals)
             {
-                //for the current animal, it gets the breed form GetBreed() method and looks up the feeding range in feeding ranges dictionary
                 var (min, max) = GetFeedingRangeByBreed(animal.GetBreed());
-                //calls CheckFeedingStatus() method. if it returns overeating then run the code inside
                 if (animal.CheckFeedingStatus(min, max) == "Overeating")
                 {
-                    //Add that animal to the overeating list
                     overeating.Add(animal);
                 }
             }
@@ -293,14 +288,14 @@ namespace FarmingFeedingApp
                 }
             }
 
-            Console.WriteLine("\n  Animals Per Species:");
+            Console.WriteLine("\nAnimals Per Species:");
             foreach (var entry in speciesCount)
             {
                 // entry.Key is the species name, entry.Value is the count
                 Console.WriteLine($"{entry.Key}: {entry.Value}");
             }
 
-            Console.WriteLine("\n  Animals Per Breed:");
+            Console.WriteLine("\nAnimals Per Breed:");
             foreach (var entry in breedCount)
             {
                 // entry.Key is the breed name, entry.Value is the count
@@ -315,56 +310,65 @@ namespace FarmingFeedingApp
 
             CountAnimalsPerSpecies();
 
-            Console.WriteLine("Animal Overview:");
+            Console.WriteLine("\nAnimal Overview:\n");
             foreach (Animal animal in animals)
             {
                 // Print a short summary for each animal - ID, breed, total food, total cost
-                Console.WriteLine($"  {animal.GetAnimalID()}\n{animal.GetBreed()}\n{animal.TotalWeeklyFood():F0}g\n${animal.TotalWeeklyCost():F2}");
+                Console.WriteLine($"Animal Name: {animal.GetAnimalID()}\nAnimal Breed: {animal.GetBreed()}\nAnimal Weekly Food Consumption: {animal.TotalWeeklyFood():F0}g\nAnimal Weekly Food Cost: ${animal.TotalWeeklyCost():F2}\n");
+                Console.WriteLine("----------------------------------------------");
             }
 
             //Total farm cost, highest feeding costs and highest animal consumption being returned to user
-            Console.WriteLine("\n------------------------------------------------------------");
+
             Console.WriteLine($"Total Weekly Cost to Feed All Animals: ${CalculateTotalFarmCost()}");
-            Console.WriteLine($"\nHighest Feeding Cost: {GetHighestCostAnimal().GetAnimalID()} ({GetHighestCostAnimal().GetBreed()}) - ${GetHighestCostAnimal().TotalWeeklyCost()} per week");
-            Console.WriteLine($"Highest Consumption: {GetHighestConsumptionAnimal().GetAnimalID()} ({GetHighestConsumptionAnimal().GetBreed()}) - {GetHighestConsumptionAnimal().TotalWeeklyFood()}g per week");
+            Console.WriteLine($"\nHighest Feeding Cost: {GetHighestCostAnimal().GetAnimalID()} ({GetHighestCostAnimal().GetBreed()}) - ${GetHighestCostAnimal().TotalWeeklyCost()} per week\n");
+            Console.WriteLine($"Highest Consumption: {GetHighestConsumptionAnimal().GetAnimalID()} ({GetHighestConsumptionAnimal().GetBreed()}) - {GetHighestConsumptionAnimal().TotalWeeklyFood()}g per week\n");
 
             //Returns a list of all undereating animals
             List<Animal> undereating = GetAnimalsUndereating();
 
             Console.WriteLine("\n------------------------------------------------------------");
 
+            Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine("Animals Undereating:");
+            Console.ForegroundColor = ConsoleColor.White;
 
             if (undereating.Count == 0)
             {
-
-                Console.WriteLine("None");
+                Console.WriteLine("  None");
             }
             else
             {
                 foreach (Animal animal in undereating)
                 {
+
                     Console.WriteLine($"  {animal.GetAnimalID()} ({animal.GetBreed()}) - {animal.TotalWeeklyFood():F0}g/week");
+
                 }
             }
+
 
             //Returns a list of all overeating animals
             List<Animal> overeating = GetAnimalsOvereating();
 
+            Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine("\nAnimals Overeating:");
+            Console.ForegroundColor = ConsoleColor.White;
+
             if (overeating.Count == 0)
             {
-
-                Console.WriteLine("None");
+                Console.WriteLine("  None");
             }
             else
             {
                 foreach (Animal animal in overeating)
                 {
+
                     Console.WriteLine($"  {animal.GetAnimalID()} ({animal.GetBreed()}) - {animal.TotalWeeklyFood():F0}g/week");
+
                 }
             }
-            Console.WriteLine("\n============================================================");
+
         }
     }
 }
