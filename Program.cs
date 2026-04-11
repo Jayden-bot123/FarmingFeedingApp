@@ -159,6 +159,8 @@ class Program
             Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine(newAnimal.AnimalSummary());
 
+            // Display the healthy feeding range for this breed
+            Console.WriteLine($"Healthy Weekly Range for {newAnimal.GetBreed()}: {min:F0}g - {max:F0}g\n");
 
             // Display consequence message if under or overeating. Red means overeating, yellow means undereating and green means normal
             if (status == "Undereating")
