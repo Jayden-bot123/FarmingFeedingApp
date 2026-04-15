@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualBasic.FileIO;
+﻿using System.Xml.Linq;
+using Microsoft.VisualBasic.FileIO;
 
 namespace FarmingFeedingApp;
 
@@ -10,54 +11,89 @@ class Program
     // List of species names in numbered order for the menu
     static List<string> SPECIES = new List<string>() { "Dairy Cow", "Beef Cow", "Sheep", "Pig", "Chicken" };
 
-
     // List of days used for the 7-day food input loop
     static List<string> DAYS = new List<string>() {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
 
     //Menu Methods
 
     // Displays the species menu and returns the selected species as a string
-    static string DisplaySpeciesMenu()
+    static string CheckDisplaySpeciesMenu()
     {
-        Console.WriteLine("\nSelect a species:");
-        for (int i = 0; i < SPECIES.Count; i++)
+        while (true)
         {
-            Console.WriteLine($"  {i + 1}. {SPECIES[i]}");
-        }
-        Console.Write("\nEnter number:\n");
+                Console.WriteLine("\nSelect a species:");
+            for (int i = 0; i < SPECIES.Count; i++)
+            {
+                Console.WriteLine($"  {i + 1}. {SPECIES[i]}");
+            }
+            Console.Write("\nEnter number:\n");
 
-        int choice = Convert.ToInt32(Console.ReadLine());
-        return SPECIES[choice - 1];
+            int choice = Convert.ToInt32(Console.ReadLine());
+            if (choice >= 1 && choice <= SPECIES.Count)
+            {
+                return SPECIES[choice - 1];
+            }
+            else
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("ERROR: You must enter a number between 1 and 5!");
+                Console.ForegroundColor = ConsoleColor.White;
+            }
+        }
     }
 
     // Displays the breed menu for the selected species and returns the selected breed
-    static string DisplayBreedMenu(string species)
+    static string CheckDisplayBreedMenu(string species)
     {
-        List<string> breeds = appManager.GetBreeds(species);
-
-        Console.WriteLine($"\nSelect a breed for {species}:");
-        for (int i = 0; i < breeds.Count; i++)
+        while (true)
         {
-            Console.WriteLine($"  {i + 1}. {breeds[i]}");
-        }
-        Console.Write("\nEnter number:\n");
+            List<string> breeds = appManager.GetBreeds(species);
 
-        int choice = Convert.ToInt32(Console.ReadLine());
-        return breeds[choice - 1];
+            Console.WriteLine($"\nSelect a breed for {species}:");
+            for (int i = 0; i < breeds.Count; i++)
+            {
+                Console.WriteLine($"  {i + 1}. {breeds[i]}");
+            }
+            Console.Write("\nEnter number:\n");
+
+            int choice = Convert.ToInt32(Console.ReadLine());
+            if (choice >= 1 && choice <= breeds.Count)
+            {
+                return breeds[choice - 1];
+            }
+            else
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine($"ERROR: You must enter a number between 1 and {breeds.Count}");
+                Console.ForegroundColor = ConsoleColor.White;
+            }
+        }
     }
 
-    static string DisplayFoodMenu(string species)
+    static string CheckDisplayFoodMenu(string species)
     {
-        List<string> foods = appManager.GetFoods(species);
-        Console.WriteLine($"\nSelect a food type for {species}\n");
-        for (int i = 0; i < foods.Count; i++)
+        while (true)
         {
-            Console.WriteLine($"{i + 1}. {foods[i]}");
-        }
-        Console.WriteLine("\nEnter number");
+            List<string> foods = appManager.GetFoods(species);
+            Console.WriteLine($"\nSelect a food type for {species}\n");
+            for (int i = 0; i < foods.Count; i++)
+            {
+                Console.WriteLine($"{i + 1}. {foods[i]}");
+            }
+            Console.WriteLine("\nEnter number");
 
-        int choice = Convert.ToInt32(Console.ReadLine());
-        return foods[choice - 1];
+            int choice = Convert.ToInt32(Console.ReadLine());
+            if (choice >= 1 && choice <= foods.Count)
+            {
+                return foods[choice - 1];
+            }
+            else
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine($"ERROR: You must enter a number between 1 and {foods.Count}");
+                Console.ForegroundColor = ConsoleColor.White;
+            }
+        }
             
     }
 
@@ -72,20 +108,29 @@ class Program
     }
 
     // Collects 7 days of food intake in grams and returns as an array
-    static double[] GetDailyFood()
+    static int[] CheckGetDailyFood()
     {
-        double[] dailyFood = new double[7];
-        int i = 0;
+        int[] dailyFood = new int[7];
 
-        Console.WriteLine("\nEnter the amount of food consumed each day (in grams):\n");
-
-        //Loop through each day using global DAYS list
-        foreach(var day in DAYS)
+        //Loop through every day
+        for (int i = 0; i < DAYS.Count; i++)
         {
-            Console.WriteLine($"\nFood consumed on {day} (grams):\n");
 
-            dailyFood[i] = Convert.ToDouble(Console.ReadLine());
-            i++;
+            while (true)
+            {
+                Console.WriteLine($"\nEnter food consumed on {DAYS[i]} (grams):\n");
+                int food = Convert.ToInt32(Console.ReadLine());
+
+                if (food >= 0 && food <= 65000)
+                {
+                    dailyFood[i] = food;
+                    //exits the loop and moves to the next day
+                    break;
+                }
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("ERROR: Food must be between 0 and 65000 grams");
+                Console.ForegroundColor = ConsoleColor.White;
+            }
         }
 
         return dailyFood;
@@ -98,16 +143,16 @@ class Program
         string animalID = GetAnimalID();
 
         //Select species
-        string species = DisplaySpeciesMenu();
+        string species = CheckDisplaySpeciesMenu();
 
         //Select breed based on species
-        string breeds = DisplayBreedMenu(species);
+        string breeds = CheckDisplayBreedMenu(species);
 
         //Select food type based on species
-        string foods = DisplayFoodMenu(species);
+        string foods = CheckDisplayFoodMenu(species);
 
         //Get daily food consumption for 7 days
-        double[] dailyfood = GetDailyFood();
+        int[] dailyfood = CheckGetDailyFood();
 
         //Look up preset cost per gram for selected food type
         double costPerGram = appManager.GetCostPerGram(foods);

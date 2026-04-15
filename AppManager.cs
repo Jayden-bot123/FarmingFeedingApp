@@ -74,20 +74,20 @@ namespace FarmingFeedingApp
         //Puts each breed to its healthy weekly food range in grams (min, max)
         private Dictionary<string, (double min, double max)> feedingRanges = new Dictionary<string, (double, double)>()
         {
-            { "Holstein-Friesian", (126000, 147000)},
-            { "Jersey", (105000, 126000) },
-            { "Angus", (77000, 98000) },
-            { "Hereford", (84000, 105000)},
-            { "Merino", (4900, 6300) },
-            { "Border Leicester", (6300, 8400) },
-            { "Charollais", (5600, 7700)},
-            { "Awassi", (5600, 7000) },
-            { "Large White", (14000, 19600)},
-            { "Duroc", (15400, 20300) },
-            { "Landrace", (13300, 18900)},
-            { "Broiler", (735, 1050) },
+            { "Holstein-Friesian", (140000, 182000)},
+            { "Jersey", (126000, 157000) },
+            { "Angus", (84000, 133000) },
+            { "Hereford", (84000, 133000)},
+            { "Merino", (7000, 10500) },
+            { "Border Leicester", (7000, 11000) },
+            { "Charollais", (7000, 10000)},
+            { "Awassi", (7000, 11200) },
+            { "Large White", (14000, 24500)},
+            { "Duroc", (14000, 24500) },
+            { "Landrace", (14000, 24500)},
+            { "Broiler", (1050, 1750) },
             { "Leghorn", (490, 630)},
-            { "Rhode Island Red", (805, 980)}
+            { "Rhode Island Red", (560, 840)}
 
         };
 

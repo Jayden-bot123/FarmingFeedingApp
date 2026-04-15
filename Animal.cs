@@ -8,11 +8,11 @@ namespace FarmingFeedingApp
 		private string species;
 		private string breed;
 		private string feedType;
-		private double[] dailyFood;
-		private double costPerGram;
+        private int[] dailyFood;
+        private double costPerGram;
 
         //Constructor
-        public Animal(string animalID, string species, string breed, string feedType, double[] dailyFood, double costPerGram)
+        public Animal(string animalID, string species, string breed, string feedType, int[] dailyFood, double costPerGram)
         {
             this.animalID = animalID;
             this.species = species;
@@ -39,7 +39,7 @@ namespace FarmingFeedingApp
         {
             return feedType;
         }
-        public double[] GetDailyFood()
+        public int[] GetDailyFood()
         {
             return dailyFood;
         }
