@@ -14,9 +14,13 @@ class Program
     // List of days used for the 7-day food input loop
     static List<string> DAYS = new List<string>() {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
 
+    // List of error messages
+    static List<string> ERRORMESSAGE = new List<string>() { "ERROR: You must enter a number between 1 and ", "ERROR: Food must be between 0 and 65000 grams" };                        
+
+
     //Menu Methods
 
-    // Displays the species menu and returns the selected species as a string
+        // Displays the species menu and returns the selected species as a string
     static string CheckDisplaySpeciesMenu()
     {
         while (true)
@@ -36,7 +40,7 @@ class Program
             else
             {
                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("ERROR: You must enter a number between 1 and 5!");
+                Console.WriteLine(ERRORMESSAGE[0] + SPECIES.Count);
                 Console.ForegroundColor = ConsoleColor.White;
             }
         }
@@ -64,7 +68,7 @@ class Program
             else
             {
                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine($"ERROR: You must enter a number between 1 and {breeds.Count}");
+                Console.WriteLine(ERRORMESSAGE[0] + breeds.Count);
                 Console.ForegroundColor = ConsoleColor.White;
             }
         }
@@ -90,7 +94,7 @@ class Program
             else
             {
                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine($"ERROR: You must enter a number between 1 and {foods.Count}");
+                Console.WriteLine(ERRORMESSAGE[0] + foods.Count);
                 Console.ForegroundColor = ConsoleColor.White;
             }
         }
@@ -128,7 +132,7 @@ class Program
                     break;
                 }
                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("ERROR: Food must be between 0 and 65000 grams");
+                Console.WriteLine(ERRORMESSAGE[1]);
                 Console.ForegroundColor = ConsoleColor.White;
             }
         }
@@ -167,7 +171,7 @@ class Program
 
         while (true)
         {
-            Console.WriteLine("\nPress <Enter> to add another devices information or type 'Stop' to quit.\n");
+            Console.WriteLine("\nPress <Enter> to add another animal's information or type 'Stop' to quit.\n");
             proceed = Console.ReadLine().ToUpper();
 
             if (proceed.Equals("") || proceed.Equals("STOP"))
