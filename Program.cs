@@ -15,7 +15,7 @@ class Program
     static List<string> DAYS = new List<string>() {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
 
     // List of error messages
-    static List<string> ERRORMESSAGE = new List<string>() { "ERROR: You must enter a number between 1 and ", "ERROR: Food must be between 0 and 65000 grams" };                        
+    static List<string> ERRORMESSAGE = new List<string>() {"ERROR: You must enter a number between 1 and ", "ERROR: Food must be between 0 and 65000 grams"};                        
 
 
     //Menu Methods
