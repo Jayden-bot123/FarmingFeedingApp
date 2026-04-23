@@ -15,17 +15,19 @@ class Program
     static List<string> DAYS = new List<string>() {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
 
     // List of error messages
-    static List<string> ERRORMESSAGE = new List<string>() {"ERROR: You must enter a number between 1 and ", "ERROR: Food must be between 0 and 65000 grams"};                        
+    static List<string> ERRORMESSAGE = new List<string>() {"ERROR: You must enter a number between 1 and ", "ERROR: Food must be between 0 and 65000 grams", "ERROR: You must enter a valid numnber",
+    "ERROR: Invalid animal name/ID entered. Only letters, digits, and spaces are allowed.", "ERROR: Invalid input."};                        
 
 
     //Menu Methods
 
-        // Displays the species menu and returns the selected species as a string
+    // Displays the species menu and returns the selected species as a string
     static string CheckDisplaySpeciesMenu()
     {
         while (true)
         {
-                Console.WriteLine("\nSelect a species:");
+
+            Console.WriteLine("\nSelect a species:");
             for (int i = 0; i < SPECIES.Count; i++)
             {
                 Console.WriteLine($"  {i + 1}. {SPECIES[i]}");
@@ -43,6 +45,7 @@ class Program
                 Console.WriteLine(ERRORMESSAGE[0] + SPECIES.Count);
                 Console.ForegroundColor = ConsoleColor.White;
             }
+                
         }
     }
 
@@ -51,6 +54,7 @@ class Program
     {
         while (true)
         {
+
             List<string> breeds = appManager.GetBreeds(species);
 
             Console.WriteLine($"\nSelect a breed for {species}:");
@@ -71,6 +75,8 @@ class Program
                 Console.WriteLine(ERRORMESSAGE[0] + breeds.Count);
                 Console.ForegroundColor = ConsoleColor.White;
             }
+            
+
         }
     }
 
@@ -78,6 +84,7 @@ class Program
     {
         while (true)
         {
+
             List<string> foods = appManager.GetFoods(species);
             Console.WriteLine($"\nSelect a food type for {species}\n");
             for (int i = 0; i < foods.Count; i++)
@@ -97,6 +104,8 @@ class Program
                 Console.WriteLine(ERRORMESSAGE[0] + foods.Count);
                 Console.ForegroundColor = ConsoleColor.White;
             }
+
+            
         }
             
     }
@@ -107,8 +116,19 @@ class Program
     // Asks for and returns the animal name/ID
     static string GetAnimalID()
     {
-        Console.Write("Enter animal name or ID:\n");
-        return Console.ReadLine().ToUpper();
+        string animalName;
+
+        while (true)
+        {
+            Console.Write("Enter animal name or ID:\n");
+            animalName = Console.ReadLine().ToUpper();
+
+
+            return animalName;
+
+
+        }
+
     }
 
     // Collects 7 days of food intake in grams and returns as an array
@@ -122,6 +142,7 @@ class Program
 
             while (true)
             {
+
                 Console.WriteLine($"\nEnter food consumed on {DAYS[i]} (grams):\n");
                 int food = Convert.ToInt32(Console.ReadLine());
 
@@ -134,6 +155,8 @@ class Program
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine(ERRORMESSAGE[1]);
                 Console.ForegroundColor = ConsoleColor.White;
+                
+
             }
         }
 
@@ -180,7 +203,7 @@ class Program
             }
 
         }
-
+ 
     }
 
 
