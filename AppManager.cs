@@ -324,7 +324,7 @@ namespace FarmingFeedingApp
             Console.WriteLine($"\nHighest Feeding Cost: {GetHighestCostAnimal().GetAnimalID()} ({GetHighestCostAnimal().GetBreed()}) - ${GetHighestCostAnimal().TotalWeeklyCost()} per week\n");
             Console.WriteLine($"Highest Consumption: {GetHighestConsumptionAnimal().GetAnimalID()} ({GetHighestConsumptionAnimal().GetBreed()}) - {GetHighestConsumptionAnimal().TotalWeeklyFood()}g per week\n");
 
-            //Returns a list of all undereating animals
+            //Returns a list of all undereating animals.
             List<Animal> undereating = GetAnimalsUndereating();
 
             Console.WriteLine("\n------------------------------------------------------------");

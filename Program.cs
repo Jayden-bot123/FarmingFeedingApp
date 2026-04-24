@@ -247,6 +247,13 @@ class Program
 
     static void Main(string[] args)
     {
+        Console.WriteLine("    ______                     ______              ___             ___              \n   / ____/___ __________ ___  / ____/__  ___  ____/ (_)___  ____ _/   |  ____  ____ \n  / /_  / __ `/ ___/ __ `__ \\/ /_  / _ \\/ _ \\/ __  / / __ \\/ __ `/ /| | / __ \\/ __ \\\n / __/ / /_/ / /  / / / / / / __/ /  __/  __/ /_/ / / / / / /_/ / ___ |/ /_/ / /_/ /\n/_/    \\__,_/_/  /_/ /_/ /_/_/    \\___/\\___/\\__,_/_/_/ /_/\\__, /_/  |_/ .___/ .___/ \n                                                         /____/      /_/   /_/      ");
+        Console.WriteLine("\n\nThis program lets users track the feeding costs of their animals. The user inputs each animal's name or ID,\n" +
+            "species, breed, food type, and how much food the animal consumed each day for a week.\n" +
+            "The program calculates the total weekly food consumption and checks if it is eating within the healthy range.\n" +
+            "If it is not, it displays a warning with consequences if the animal is undereating or overeating.\n" +
+            "Finally, it shows a full farm summary including the number of animals per species and breed, total weekly feeding cost,\nthe animal with the highest feeding cost, and lists of all undereating and overeating animals.\n");
+        Console.WriteLine("--------------------------------------------------------------------------------------------------------------------------------------------------------------\n");
         string proceed = "";
         while (proceed.Equals(""))
         {

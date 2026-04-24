@@ -87,6 +87,8 @@ namespace FarmingFeedingApp
                 return "Normal";
             }
         }
+
+        //Summary for animal after the user inputs
         public string AnimalSummary()
         {
             string[] days = { "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" };
