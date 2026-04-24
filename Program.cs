@@ -12,11 +12,11 @@ class Program
     static List<string> SPECIES = new List<string>() { "Dairy Cow", "Beef Cow", "Sheep", "Pig", "Chicken" };
 
     // List of days used for the 7-day food input loop
-    static List<string> DAYS = new List<string>() {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
+    static List<string> DAYS = new List<string>() { "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" };
 
     // List of error messages
     static List<string> ERRORMESSAGE = new List<string>() {"ERROR: You must enter a number between 1 and ", "ERROR: Food must be between 0 and 65000 grams", "ERROR: You must enter a valid numnber",
-    "ERROR: Invalid animal name/ID entered. Only letters, digits, and spaces are allowed.", "ERROR: Invalid input."};                        
+    "ERROR: Invalid animal name/ID entered. Only letters, digits, and spaces are allowed.", "ERROR: Invalid input."};
 
 
     //Menu Methods
@@ -26,26 +26,36 @@ class Program
     {
         while (true)
         {
-
-            Console.WriteLine("\nSelect a species:");
-            for (int i = 0; i < SPECIES.Count; i++)
+            try
             {
-                Console.WriteLine($"  {i + 1}. {SPECIES[i]}");
-            }
-            Console.Write("\nEnter number:\n");
+                Console.WriteLine("\nSelect a species:");
+                for (int i = 0; i < SPECIES.Count; i++)
+                {
+                    Console.WriteLine($"  {i + 1}. {SPECIES[i]}");
+                }
+                Console.Write("\nEnter number:\n");
 
-            int choice = Convert.ToInt32(Console.ReadLine());
-            if (choice >= 1 && choice <= SPECIES.Count)
-            {
-                return SPECIES[choice - 1];
+                int choice = Convert.ToInt32(Console.ReadLine());
+                if (choice >= 1 && choice <= SPECIES.Count)
+                {
+                    return SPECIES[choice - 1];
+                }
+                else
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine(ERRORMESSAGE[0] + SPECIES.Count);
+                    Console.ForegroundColor = ConsoleColor.White;
+                }
+
             }
-            else
+            catch
             {
                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine(ERRORMESSAGE[0] + SPECIES.Count);
+                Console.WriteLine(ERRORMESSAGE[2]);
                 Console.ForegroundColor = ConsoleColor.White;
+
             }
-                
+
         }
     }
 
@@ -54,29 +64,35 @@ class Program
     {
         while (true)
         {
-
-            List<string> breeds = appManager.GetBreeds(species);
-
-            Console.WriteLine($"\nSelect a breed for {species}:");
-            for (int i = 0; i < breeds.Count; i++)
+            try
             {
-                Console.WriteLine($"  {i + 1}. {breeds[i]}");
-            }
-            Console.Write("\nEnter number:\n");
+                List<string> breeds = appManager.GetBreeds(species);
 
-            int choice = Convert.ToInt32(Console.ReadLine());
-            if (choice >= 1 && choice <= breeds.Count)
-            {
-                return breeds[choice - 1];
+                Console.WriteLine($"\nSelect a breed for {species}:");
+                for (int i = 0; i < breeds.Count; i++)
+                {
+                    Console.WriteLine($"  {i + 1}. {breeds[i]}");
+                }
+                Console.Write("\nEnter number:\n");
+
+                int choice = Convert.ToInt32(Console.ReadLine());
+                if (choice >= 1 && choice <= breeds.Count)
+                {
+                    return breeds[choice - 1];
+                }
+                else
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine(ERRORMESSAGE[0] + breeds.Count);
+                    Console.ForegroundColor = ConsoleColor.White;
+                }
             }
-            else
+            catch
             {
                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine(ERRORMESSAGE[0] + breeds.Count);
+                Console.WriteLine(ERRORMESSAGE[2]);
                 Console.ForegroundColor = ConsoleColor.White;
             }
-            
-
         }
     }
 
@@ -84,30 +100,37 @@ class Program
     {
         while (true)
         {
-
-            List<string> foods = appManager.GetFoods(species);
-            Console.WriteLine($"\nSelect a food type for {species}\n");
-            for (int i = 0; i < foods.Count; i++)
+            try
             {
-                Console.WriteLine($"{i + 1}. {foods[i]}");
-            }
-            Console.WriteLine("\nEnter number");
+                List<string> foods = appManager.GetFoods(species);
+                Console.WriteLine($"\nSelect a food type for {species}\n");
+                for (int i = 0; i < foods.Count; i++)
+                {
+                    Console.WriteLine($"{i + 1}. {foods[i]}");
+                }
+                Console.WriteLine("\nEnter number");
 
-            int choice = Convert.ToInt32(Console.ReadLine());
-            if (choice >= 1 && choice <= foods.Count)
-            {
-                return foods[choice - 1];
+                int choice = Convert.ToInt32(Console.ReadLine());
+                if (choice >= 1 && choice <= foods.Count)
+                {
+                    return foods[choice - 1];
+                }
+                else
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine(ERRORMESSAGE[0] + foods.Count);
+                    Console.ForegroundColor = ConsoleColor.White;
+                }
             }
-            else
+            catch
             {
                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine(ERRORMESSAGE[0] + foods.Count);
+                Console.WriteLine(ERRORMESSAGE[2]);
                 Console.ForegroundColor = ConsoleColor.White;
             }
 
-            
         }
-            
+
     }
 
 
@@ -123,10 +146,13 @@ class Program
             Console.Write("Enter animal name or ID:\n");
             animalName = Console.ReadLine().ToUpper();
 
-
-            return animalName;
-
-
+            if (!string.IsNullOrWhiteSpace(animalName) && animalName.All(ch => char.IsLetterOrDigit(ch) || ch == ' '))
+            {
+                return animalName;
+            }
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine(ERRORMESSAGE[3]);
+            Console.ForegroundColor = ConsoleColor.White;
         }
 
     }
@@ -142,21 +168,28 @@ class Program
 
             while (true)
             {
-
-                Console.WriteLine($"\nEnter food consumed on {DAYS[i]} (grams):\n");
-                int food = Convert.ToInt32(Console.ReadLine());
-
-                if (food >= 0 && food <= 65000)
+                try
                 {
-                    dailyFood[i] = food;
-                    //exits the loop and moves to the next day
-                    break;
-                }
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine(ERRORMESSAGE[1]);
-                Console.ForegroundColor = ConsoleColor.White;
-                
+                    Console.WriteLine($"\nEnter food consumed on {DAYS[i]} (grams):\n");
+                    int food = Convert.ToInt32(Console.ReadLine());
 
+                    if (food >= 0 && food <= 65000)
+                    {
+                        dailyFood[i] = food;
+                        //exits the loop and moves to the next day
+                        break;
+                    }
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine(ERRORMESSAGE[1]);
+                    Console.ForegroundColor = ConsoleColor.White;
+                }
+                catch
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine(ERRORMESSAGE[2]);
+                    Console.ForegroundColor = ConsoleColor.White;
+
+                }
             }
         }
 
@@ -201,9 +234,12 @@ class Program
             {
                 return proceed;
             }
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine(ERRORMESSAGE[4]);
+            Console.ForegroundColor = ConsoleColor.White;
 
         }
- 
+
     }
 
 
@@ -264,8 +300,8 @@ class Program
         // Display the final farm summary
         appManager.FinalFarmSummary();
 
-    
 
-    } 
+
+    }
 }
 
