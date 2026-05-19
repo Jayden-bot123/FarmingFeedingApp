@@ -212,13 +212,13 @@ class Program
         string foods = CheckDisplayFoodMenu(species);
 
         //Get daily food consumption for 7 days
-        int[] dailyfood = CheckGetDailyFood();
+        int[] dailyFood = CheckGetDailyFood();
 
         //Look up preset cost per gram for selected food type
         double costPerGram = appManager.GetCostPerGram(foods);
 
         //Create and return the new Animal object
-        return new Animal(animalID, species, breeds, foods, dailyfood, costPerGram);
+        return new Animal(animalID, species, breeds, foods, dailyFood, costPerGram);
     }
 
     static string CheckProceed()

@@ -142,7 +142,6 @@ namespace FarmingFeedingApp
         public AppManager()
 		{
 
-
 		}
 
         //Methods
@@ -163,6 +162,19 @@ namespace FarmingFeedingApp
             {
                 highestConsumptionAnimal = animal;
             }
+
+        }
+
+        // Displays the animal with the highest weekly feeding cost
+        public void DisplayHighestCostAnimal()
+        {
+            Console.WriteLine($"Highest Feeding Cost: {GetHighestCostAnimal().GetAnimalID()} ({GetHighestCostAnimal().GetBreed()}) - ${GetHighestCostAnimal().TotalWeeklyCost():F2} per week");
+        }
+
+        // Displays the animal with the highest weekly food consumption
+        public void DisplayHighestConsumptionAnimal()
+        {
+            Console.WriteLine($"Highest Consumption: {GetHighestConsumptionAnimal().GetAnimalID()} ({GetHighestConsumptionAnimal().GetBreed()}) - {GetHighestConsumptionAnimal().TotalWeeklyFood():F0}g per week");
         }
 
         // Returns the list of breeds for a given species
@@ -321,8 +333,8 @@ namespace FarmingFeedingApp
             //Total farm cost, highest feeding costs and highest animal consumption being returned to user
 
             Console.WriteLine($"Total Weekly Cost to Feed All Animals: ${CalculateTotalFarmCost()}");
-            Console.WriteLine($"\nHighest Feeding Cost: {GetHighestCostAnimal().GetAnimalID()} ({GetHighestCostAnimal().GetBreed()}) - ${GetHighestCostAnimal().TotalWeeklyCost()} per week\n");
-            Console.WriteLine($"Highest Consumption: {GetHighestConsumptionAnimal().GetAnimalID()} ({GetHighestConsumptionAnimal().GetBreed()}) - {GetHighestConsumptionAnimal().TotalWeeklyFood()}g per week\n");
+            DisplayHighestCostAnimal();
+            DisplayHighestConsumptionAnimal();
 
             //Returns a list of all undereating animals.
             List<Animal> undereating = GetAnimalsUndereating();
